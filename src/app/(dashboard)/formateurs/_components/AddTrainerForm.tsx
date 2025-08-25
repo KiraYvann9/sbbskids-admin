@@ -57,8 +57,8 @@ export const AddTrainerForm = () => {
       const response = await postData("trainer/trainers", data);
       return response;
     },
-    onSuccess: (data) => {
-      queryClient.invalidateQueries({queryKey: ["trainers"]});
+    onSuccess: async (data) => {
+      await queryClient.invalidateQueries({queryKey: ["trainers"]});
       form.reset();
       toast.success("Formateur ajouté avec succès!");
     },
