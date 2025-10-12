@@ -8,8 +8,10 @@ import { columns } from "./_components/table/Columns";
 
 import { fetchData } from "@/services/service";
 import toast from "react-hot-toast";
+import {Modal} from "@/components/Modal";
 
 export default function FormateursPage() {
+
   const getTrainers = async () => {
     const response = await fetchData("trainer/trainers");
     return response?.trainers;
@@ -30,9 +32,9 @@ export default function FormateursPage() {
   //   return <div>Loading...</div>;
   // }
 
-  {
+
     isError && toast.error("Quelque chose s'est mal passée");
-  }
+
 
   return (
     <div className="p-4 flex flex-col gap-14">
@@ -42,6 +44,7 @@ export default function FormateursPage() {
         data={trainers || []}
         isLoading={isLoading}
       />
+        <Modal modalType={''} modalTile={'Edition'} />
     </div>
   );
 }

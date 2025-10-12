@@ -16,7 +16,7 @@ export const Navbar = () => {
   const router = useRouter()
   const { logout } = useAdminStore();
 
-  const {mutate, isError, isPending  } = useMutation({
+  const {mutate} = useMutation({
         mutationFn: () => logout(),
         onSuccess: () =>{
             router.push('/')
@@ -31,7 +31,7 @@ export const Navbar = () => {
     <div className="w-full h-28 flex items-center justify-between px-4 bg-white border-b">
       <div className="text-2xl font-semibold">{capitalize(pathname.replace("/", "") || "Dashboard")}</div>
       <div className="flex items-center gap-4">
-        <Button onClick={() => mutate()} className="hover:bg-gray-100 hover:text-[#1f2043] rounded-sm ease-in-out transition-colors duration-200">
+        <Button variant={'secondary'} onClick={() => mutate()} className="hover:bg-gray-100 hover:text-[#1f2043] rounded-sm ease-in-out transition-colors duration-200">
           <LogOut />
           <span className="ml-2">Déconnexion</span>
         </Button>

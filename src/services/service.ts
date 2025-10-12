@@ -1,12 +1,7 @@
 import axios from "axios";
+import { getAuthToken } from '@/services/authTokenService'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
-
-const getAuthToken = () => {
-  // Implement your logic to retrieve the auth token
-  const data = JSON.parse(localStorage.getItem("admin-store") || "{}");
-  return data.state?.user?.token;
-};
 
 export const fetchData = async (endpoint: string) => {
   const token = getAuthToken();
@@ -24,7 +19,7 @@ export const fetchData = async (endpoint: string) => {
   }
 };
 
-export const postData = async (endpoint: string, data: Record<string, unknown>) => {
+export const postData = async (endpoint: string, data: any) => {
   const token = getAuthToken();
   try {
     const response = await axios.post(`${API_URL}/${endpoint}`, data, {

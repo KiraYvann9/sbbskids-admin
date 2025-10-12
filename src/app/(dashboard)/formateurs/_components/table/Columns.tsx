@@ -1,27 +1,11 @@
 "use client";
 import * as React from "react";
-import { useSortable } from "@dnd-kit/sortable";
-import {
-  IconCircleCheckFilled,
-  IconDotsVertical,
-  IconGripVertical,
-  IconLoader,
-} from "@tabler/icons-react";
 import { ColumnDef } from "@tanstack/react-table";
-import { toast } from "sonner";
 import { z } from "zod";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 import { schema } from "./Schema";
+import {ActionsButton} from "@/app/(dashboard)/formateurs/_components/table/ActionsButton";
 
 
 export const columns: ColumnDef<z.infer<typeof schema>>[] = [
@@ -111,30 +95,7 @@ export const columns: ColumnDef<z.infer<typeof schema>>[] = [
   {
     id: "actions",
     cell: ({ row }) => (
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button
-            variant="ghost"
-            className="data-[state=open]:bg-muted text-muted-foreground flex size-8"
-            size="icon"
-          >
-            <IconDotsVertical />
-            <span className="sr-only">Open menu</span>
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-32">
-          <DropdownMenuItem>Edit</DropdownMenuItem>
-          <DropdownMenuItem>Make a copy</DropdownMenuItem>
-          <DropdownMenuItem>Favorite</DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem
-            variant="destructive"
-            onClick={() => console.log(row.original.id)}
-          >
-            Delete
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+      <ActionsButton data={row.original}/>
     ),
   },
 ];

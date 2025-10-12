@@ -1,4 +1,4 @@
-import { MaxWidthWrapper } from "@/components/MaxWidthWrapper";
+
 import { Navbar } from "@/components";
 import { SidebarComponent } from "@/components/sidebar/SidebarComponent";
 

@@ -1,5 +1,3 @@
-import z from "zod";
-import { schema } from "../_components/table/Schema";
 
 import { fetchData } from "@/services/service";
 

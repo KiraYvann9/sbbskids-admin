@@ -25,20 +25,23 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { postData } from "@/services/service";
 import toast from "react-hot-toast";
-import { use } from "react";
+
 import { Spinner } from "@/components/Spinner";
 
 const formSchema = z.object({
   name: z.string().min(2).max(100),
+    // avatar: z.string().optional(),
   email: z.string().email(),
   gender: z.string().min(3).max(100),
   phone_number: z.string().min(6).max(100),
   number_whatsapp: z.string().min(6).max(100),
+
 });
 
 export const AddTrainerForm = () => {
 
     const queryClient = useQueryClient();
+
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -48,6 +51,7 @@ export const AddTrainerForm = () => {
       gender: "",
       phone_number: "",
       number_whatsapp: "",
+      // avatar: ""
     },
   });
 
@@ -57,7 +61,7 @@ export const AddTrainerForm = () => {
       const response = await postData("trainer/trainers", data);
       return response;
     },
-    onSuccess: async (data) => {
+    onSuccess: async () => {
       await queryClient.invalidateQueries({queryKey: ["trainers"]});
       form.reset();
       toast.success("Formateur ajouté avec succès!");
@@ -65,8 +69,7 @@ export const AddTrainerForm = () => {
   });
 
   const onSubmit = (data: z.infer<typeof formSchema>) => {
-    console.log(data);
-    mutation.mutate(data);
+    mutation.mutate(data)
   };
 
   return (
