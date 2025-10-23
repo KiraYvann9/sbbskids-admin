@@ -16,6 +16,7 @@ import {TiptapEditor} from "@/components";
 import {useEffect, useState} from "react";
 import {Button} from "@/components/ui/button";
 import {FileText, Plus, Trash2, Video} from "lucide-react";
+import {router} from "next/client";
 
 export default function AddCoursePage() {
 
@@ -88,6 +89,7 @@ export default function AddCoursePage() {
             await queryClient.invalidateQueries({queryKey: ["courses"]});
             form.reset();
             toast.success("Cours ajouté avec succès!");
+            await router.push("/cours");
         },
         onError: (error) => {
             console.error("Erreur lors de l'ajout du cours:", error);
