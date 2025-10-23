@@ -5,7 +5,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 
 import { schema } from "./Schema";
 import {ActionsButton} from "./ActionsButton";
-import Image from "next/image";
 import {formatDate} from "@/lib/formatDate";
 
 
@@ -37,46 +36,45 @@ export const columns: ColumnDef<schema>[] = [
         enableHiding: false,
     },
     {
-        accessorKey: "name",
-        header: "Nom",
+        accessorKey: "title",
+        header: "Titre",
         cell: ({ row }) => {
-            return <div>{row.original.name}</div>;
+            return (
+                <div className="flex flex-col gap-2 justify-center">
+                    <strong className={'text-2xl'}>{row.original.title}</strong>
+                    <span>{row.original.level.age_group}/{row.original.level.name}</span>
+                </div>
+            );
         },
         enableHiding: false,
     },
 
     {
-        accessorKey: "age_group",
-        header: () => <div className="w-full text-left">Tranche d'âge </div>,
+        accessorKey: "module",
+        header: () => <div className="w-full text-left">Module</div>,
         cell: ({ row }) => {
-            return <div>{row.original.age_group}</div>;
+            return <div>{row.original.module.name}</div>;
         },
     },
     {
-        accessorKey: "description",
-        header: () => <div className="w-full text-left">Description</div>,
-        cell: ({ row }) => <div>{row.original.description}</div>,
+        accessorKey: "supports",
+        header: () => <div className="w-full text-left">Nbr. Support</div>,
+        cell: ({ row }) => <div>{row.original.supports.length}</div>,
     },
     {
-        accessorKey: "modules",
-        header: () => <div className="w-full text-left">Nbr Modules</div>,
-        cell: ({ row }) => <div>{row.original.modules.length}</div>,
-    },
-    {
-        accessorKey: "image",
-        header: "Image",
-        cell: ({ row }) => {
-            return (
-                <div className=" relative w-[100px] h-[80px] flex justify-center items-center">
-                    <Image src={row.original.image_url} alt="Image" className="rounded-md" fill={true} objectFit={"cover"} priority={true}/>
-                </div>
-            );
-        },
+        accessorKey: "activities",
+        header: () => <div className="w-full text-left">Nbr. Activité</div>,
+        cell: ({ row }) => <div>{row.original.activities.length}</div>,
     },
     {
         accessorKey: "created_at",
         header: () => <div className="w-full text-left">Créé le</div>,
         cell: ({ row }) => <div>{formatDate(row.original.created_at)}</div>,
+    },
+    {
+        accessorKey: "admin.name",
+        header: () => <div className="w-full text-left">Par</div>,
+        cell: ({ row }) => <div>{row.original.admin.name}</div>,
     },
     {
         id: "actions",

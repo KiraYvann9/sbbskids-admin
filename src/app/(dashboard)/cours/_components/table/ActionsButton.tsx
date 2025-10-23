@@ -13,7 +13,7 @@ import * as React from "react";
 import {useMutation} from "@tanstack/react-query";
 import {useQueryClient} from "@tanstack/react-query";
 
-import {deleteTrainer} from "./actions";
+import {deleteCourse} from "./actions";
 import {toast} from "react-hot-toast";
 import {Spinner} from "@/components/Spinner";
 import {schema} from "./Schema";
@@ -27,9 +27,9 @@ export const ActionsButton = ({data}: {data: schema}) =>{
     const queryClient = useQueryClient();
 
     const mutation = useMutation({
-        mutationFn: async (id: number) => deleteTrainer(id),
+        mutationFn: async (id: number) => deleteCourse(id),
         onSuccess: async () => {
-            await queryClient.invalidateQueries({queryKey: ['age_group']})
+            await queryClient.invalidateQueries({queryKey: ['courses']})
             toast.success("Le formateur à été supprimé ");
         },
         onError: (error) => { console.log(error) }

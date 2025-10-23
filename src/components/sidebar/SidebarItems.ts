@@ -1,4 +1,4 @@
-import {Layers, LayoutDashboard, LucideIcon, Settings, User, Users} from "lucide-react"
+import {Book, Layers, LayoutDashboard, LucideIcon, Plus, Puzzle, Settings, User, Users} from "lucide-react"
 import {IconChalkboardTeacher} from '@tabler/icons-react'
 import React from "react";
 
@@ -22,8 +22,19 @@ export const sidebarItems: sidebarItemTypes[] = [
     },
     {
         title: "Cours",
-        icon: Layers,
-        href: "/cours",
+        icon: Book,
+        children: [
+            {
+                title: "Liste des cours",
+                icon: Layers,
+                href: "/cours",
+            },
+            {
+                title: "Ajouter un cours",
+                icon: Plus,
+                href: "/cours/add_courses",
+            },
+        ],
     },
     {
         title: "Parents",
@@ -44,14 +55,14 @@ export const sidebarItems: sidebarItemTypes[] = [
                 icon: Layers,
                 href: "/generalite/niveaux",
             },
-            {
+            /*{
                 title: "Suports",
-                icon: Users,
+                icon: Video,
                 href: "/generalite/suports",
-            },
+            },*/
             {
                 title: "Modules",
-                icon: Layers,
+                icon: Puzzle,
                 href: "/generalite/modules",
             },
             {

@@ -9,10 +9,10 @@ export default function DashboardLauyoutt({
 }>) {
   return (
     // <MaxWidthWrapper>
-      <div className="flex h-screen bg-gray-100">
+      <div className="flex min-h-screen h-screen bg-gray-100">
 
         <SidebarComponent />
-        <div className="flex-1">
+        <div className="flex-1 min-h-screen">
           <Navbar />
           {children}
         </div>

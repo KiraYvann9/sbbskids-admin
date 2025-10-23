@@ -8,7 +8,7 @@ import {columns} from "./_components/table/Columns";
 
 export default function NiveauxPage() {
 
-    const {data, isLoading, isError} = useQuery({
+    const {data, isLoading} = useQuery({
         queryKey: ['age_group'],
         queryFn: async () => {
             const response = await fetchData('admin/levels')

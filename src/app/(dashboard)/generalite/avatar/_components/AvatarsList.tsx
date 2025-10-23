@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 import { fetchData } from "@/services/service";
 import { Spinner } from "@/components/Spinner";
@@ -40,7 +39,7 @@ function resolveImageUrl(item: AvatarItem): string | null {
 }
 
 export const AvatarsList = () => {
-  const { data, isLoading, isError, error } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ["avatars"],
     queryFn: async () => fetchData("admin/avatars"),
   });

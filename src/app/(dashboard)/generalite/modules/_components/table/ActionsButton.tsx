@@ -29,7 +29,7 @@ export const ActionsButton = ({data}: {data: schema}) =>{
     const mutation = useMutation({
         mutationFn: async (id: number) => deleteTrainer(id),
         onSuccess: async () => {
-            await queryClient.invalidateQueries({queryKey: ['age_group']})
+            await queryClient.invalidateQueries({queryKey: ['modules']})
             toast.success("Le formateur à été supprimé ");
         },
         onError: (error) => { console.log(error) }
