@@ -1,7 +1,7 @@
 'use client'
 
 import {Button} from "@/components/ui/button";
-import {Plus} from "lucide-react";
+import {Database, Plus} from "lucide-react";
 import Link from "next/link";
 import {useQuery} from "@tanstack/react-query";
 import {fetchData} from "@/services/service";
@@ -11,7 +11,7 @@ import {columns} from "./_components/table/Columns";
 
 export default function Courses() {
 
-    const {data: Courses, isLoading } = useQuery({
+    const {data: Courses, isLoading} = useQuery({
         queryKey: ['courses'],
         queryFn: async () => {
             const courses = await fetchData('admin/courses');
@@ -19,12 +19,27 @@ export default function Courses() {
         },
     })
 
-    return(
+    return (
         <div className="p-4 space-y-4">
-            <div className={'flex justify-end items-center p-4 w-full h-20 bg-white border rounded-sm'}>
 
+
+            <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                    <div className="bg-gradient-to-br from-indigo-500 to-indigo-600 p-3 rounded-lg shadow-md">
+                        <Database className="w-6 h-6 text-white"/>
+                    </div>
+                    <div>
+                        <h2 className="text-xl font-semibold text-gray-800">Liste des cours</h2>
+                        <p className="text-sm text-gray-500 mt-0.5">
+              <span className="font-semibold text-indigo-600">
+                {Courses?.length}
+              </span>
+                            {" "}cours au total
+                        </p>
+                    </div>
+                </div>
                 <Button variant={'outline'} className={'bg-yellow-400'} asChild>
-                    <Link href={'/cours/add_courses'} > <Plus /> Ajouter un jour</Link>
+                    <Link href={'/cours/add_courses'}> <Plus/> Ajouter un jour</Link>
                 </Button>
             </div>
 

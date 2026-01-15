@@ -15,6 +15,7 @@ export default function FormateursPage() {
         data: parents,
         isLoading,
         isError,
+        refetch
     } = useQuery({
         queryKey: ["parents"],
         queryFn: getAllParents,
@@ -38,6 +39,7 @@ export default function FormateursPage() {
                 columns={columns}
                 data={parents || []}
                 isLoading={isLoading}
+                refetch={refetch}
             />
         </div>
     );

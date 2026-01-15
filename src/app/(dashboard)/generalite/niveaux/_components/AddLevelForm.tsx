@@ -13,6 +13,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Spinner } from "@/components/Spinner";
 import { postData } from "@/services/service";
+import { Layers, Image as ImageIcon, FileText, PlusCircle } from "lucide-react";
 
 const AGE_GROUPS = [
   { value: "4-7", label: "4-7 ans" },
@@ -35,7 +36,6 @@ export const AddLevelForm = () => {
 
   const mutation = useMutation({
     mutationFn: async (data: LevelFormValues) => {
-      // Build FormData if image is present
       const formData = new FormData();
       formData.append("name", data.name);
       formData.append("age_group", data.age_group);
@@ -44,7 +44,6 @@ export const AddLevelForm = () => {
       const file = Array.isArray(data.image) ? data.image[0] : (data.image as File | undefined);
       if (file) formData.append("image", file);
 
-      // Adjust endpoint according to backend conventions
       const response = await postData("admin/levels", formData);
       return response;
     },
@@ -60,87 +59,145 @@ export const AddLevelForm = () => {
   };
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
-        <fieldset className="w-full p-4 bg-white drop-shadow-sm flex items-end space-x-2 rounded-sm">
-          <legend className="text-lg font-medium mb-2 p-2 text-white bg-[#1f2043]">Ajouter un niveau</legend>
+    <div className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
+      {/* Header */}
+      <div className="bg-gradient-to-r from-[#1f2043] to-indigo-900 p-6">
+        <div className="flex items-center gap-3">
+          <div className="bg-white/10 p-3 rounded-lg backdrop-blur-sm">
+            <Layers className="w-6 h-6 text-white" />
+          </div>
+          <div>
+            <h2 className="text-xl font-bold text-white">Ajouter un Niveau</h2>
+            <p className="text-indigo-200 text-sm mt-1">Renseignez les informations du nouveau niveau</p>
+          </div>
+        </div>
+      </div>
 
-          <FormField
-            name="name"
-            control={form.control}
-            render={({ field }) => (
-              <FormItem className="flex-1 flex-col">
-                <FormLabel htmlFor="name" className="text-muted-foreground">Nom *</FormLabel>
-                <FormControl>
-                  <Input type="text" id="name" className="h-12" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+      {/* Form */}
+      <div className="p-6">
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            {/* Section Informations du Niveau */}
+            <div className="space-y-4">
+              <div className="flex items-center gap-2 pb-3 border-b border-gray-200">
+                <Layers className="w-5 h-5 text-indigo-600" />
+                <h3 className="text-base font-semibold text-gray-800">Informations du Niveau</h3>
+              </div>
 
-          <FormField
-            name="age_group"
-            control={form.control}
-            render={({ field }) => (
-              <FormItem className="flex-1 flex-col">
-                <FormLabel htmlFor="age_group" className="text-muted-foreground">Tranche d'âge *</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                  <FormControl>
-                    <SelectTrigger className="min-h-12 flex w-full">
-                      <SelectValue placeholder="Sélectionner la tranche d'âge" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {AGE_GROUPS.map((g) => (
-                      <SelectItem key={g.value} value={g.value}>{g.label}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <FormField
+                  name="name"
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-sm font-medium text-gray-700">Nom *</FormLabel>
+                      <FormControl>
+                        <div className="relative">
+                          <Layers className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                          <Input
+                            type="text"
+                            placeholder="Ex: Débutant"
+                            className="h-11 pl-10 bg-gray-50 border-gray-300 hover:border-indigo-400 focus:border-indigo-500 transition-colors"
+                            {...field}
+                          />
+                        </div>
+                      </FormControl>
+                      <FormMessage className="text-xs" />
+                    </FormItem>
+                  )}
+                />
 
-          <FormField
-            name="image"
-            control={form.control}
-            render={({ field }) => (
-              <FormItem className="flex-1 flex-col">
-                <FormLabel htmlFor="image" className="text-muted-foreground">Image</FormLabel>
-                <FormControl>
-                  <Input
-                    id="image"
-                    type="file"
-                    accept="image/*"
-                    className="h-12"
-                    onChange={(e) => field.onChange(e.target.files ? e.target.files[0] : undefined)}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                <FormField
+                  name="age_group"
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-sm font-medium text-gray-700">Tranche d'âge *</FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger className="h-11 bg-gray-50 border-gray-300 hover:border-indigo-400 focus:border-indigo-500 transition-colors">
+                            <SelectValue placeholder="Sélectionner la tranche d'âge" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {AGE_GROUPS.map((g) => (
+                            <SelectItem key={g.value} value={g.value}>{g.label}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage className="text-xs" />
+                    </FormItem>
+                  )}
+                />
 
-          <FormField
-            name="description"
-            control={form.control}
-            render={({ field }) => (
-              <FormItem className="flex-1 flex-col">
-                <FormLabel htmlFor="description" className="text-muted-foreground">Description *</FormLabel>
-                <FormControl>
-                  <Textarea id="description" className="min-h-12" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                <FormField
+                  name="image"
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-sm font-medium text-gray-700">Image</FormLabel>
+                      <FormControl>
+                        <div className="relative">
+                          <ImageIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                          <Input
+                            type="file"
+                            accept="image/*"
+                            className="h-11 pl-10 bg-gray-50 border-gray-300 hover:border-indigo-400 focus:border-indigo-500 transition-colors"
+                            onChange={(e) => field.onChange(e.target.files ? e.target.files[0] : undefined)}
+                          />
+                        </div>
+                      </FormControl>
+                      <FormMessage className="text-xs" />
+                    </FormItem>
+                  )}
+                />
 
-          <Button type="submit" className="h-12 bg-green-500" disabled={mutation.isPending}>
-            {mutation.isPending ? <Spinner /> : "Ajouter"}
-          </Button>
-        </fieldset>
-      </form>
-    </Form>
+                <FormField
+                  name="description"
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem className="md:col-span-2">
+                      <FormLabel className="text-sm font-medium text-gray-700">Description *</FormLabel>
+                      <FormControl>
+                        <div className="relative">
+                          <FileText className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                          <Textarea
+                            placeholder="Décrivez ce niveau..."
+                            className="min-h-28 pl-10 bg-gray-50 border-gray-300 hover:border-indigo-400 focus:border-indigo-500 transition-colors"
+                            {...field}
+                          />
+                        </div>
+                      </FormControl>
+                      <FormMessage className="text-xs" />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </div>
+
+            {/* Submit Button */}
+            <div className="flex justify-end pt-4 border-t border-gray-200">
+              <Button
+                type="submit"
+                className="gap-2 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-8 h-11 text-base font-semibold shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled={mutation.isPending}
+              >
+                {mutation.isPending ? (
+                  <>
+                    <Spinner />
+                    <span>Ajout en cours...</span>
+                  </>
+                ) : (
+                  <>
+                    <PlusCircle className="w-5 h-5" />
+                    <span>Ajouter le niveau</span>
+                  </>
+                )}
+              </Button>
+            </div>
+          </form>
+        </Form>
+      </div>
+    </div>
   );
 };

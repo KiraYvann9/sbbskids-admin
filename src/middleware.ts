@@ -7,7 +7,6 @@ export async function middleware(req: NextRequest) {
 
   // Read token from cookies (must be set on login from client)
   const token = req.cookies.get("auth_token")?.value;
-  console.log('Toke: ',token)
 
   const isLoginPage = pathname === "/";
 

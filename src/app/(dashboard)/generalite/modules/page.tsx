@@ -5,6 +5,7 @@ import {useQuery} from "@tanstack/react-query";
 import {fetchData} from "@/services/service";
 import {DataTable} from "./_components/table/DataTable";
 import {columns} from "./_components/table/Columns";
+import {Modal} from "@/components/Modal";
 
 export default function ModulesPage() {
 
@@ -22,6 +23,7 @@ export default function ModulesPage() {
       <div className="py-4 px-14 space-y-4">
           <h1 className="text-2xl font-semibold">Modules</h1>
           <AddModuleForm />
+          <Modal modalType={'EDIT'} modalTile={'Edition'}/>
           <DataTable data={data || []} isLoading={isLoading} columns={columns}/>
     </div>
   );

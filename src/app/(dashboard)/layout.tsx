@@ -12,7 +12,7 @@ export default function DashboardLauyoutt({
       <div className="flex min-h-screen h-screen bg-gray-100">
 
         <SidebarComponent />
-        <div className="flex-1 min-h-screen">
+        <div className="flex-1 min-h-screen overflow-y-auto">
           <Navbar />
           {children}
         </div>

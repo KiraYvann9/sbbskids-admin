@@ -11,7 +11,7 @@ import { useModalStore } from "@/stores/useModalStore"
 export const Modal  = ({
     modalTile,
    }: {
-    modalType: string,
+    modalType: 'EDIT' | 'DETAILS',
     modalTile: string,
 }) =>{
 
