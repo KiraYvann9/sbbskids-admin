@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 // Auth middleware: No page is accessible without being logged in, except the login page (/).
 // Also prevent authenticated users from seeing the login page.
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   // Read token from cookies (must be set on login from client)
