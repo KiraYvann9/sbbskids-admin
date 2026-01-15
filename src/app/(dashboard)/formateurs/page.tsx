@@ -44,7 +44,7 @@ export default function FormateursPage() {
         data={trainers || []}
         isLoading={isLoading}
       />
-        <Modal modalType={''} modalTile={'Edition'} />
+        <Modal modalType={'EDIT'} modalTile={'Edition'} />
     </div>
   );
 }

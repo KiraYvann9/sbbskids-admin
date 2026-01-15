@@ -1,25 +1,25 @@
-import axios, { AxiosError } from 'axios';
+// import axios, { AxiosError } from 'axios';
 
-const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+// const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
-const httpRequest = axios.create({
-    baseURL: baseUrl,
-    headers: {
-        'Content-Type': 'application/json'
-    }
-});
+// const httpRequest = axios.create({
+//     baseURL: baseUrl,
+//     headers: {
+//         'Content-Type': 'application/json'
+//     }
+// });
 
-httpRequest.interceptors.request.use(
-    async (config) => {
-        try{
+// httpRequest.interceptors.request.use(
+//     async (config) => {
+//         try{
 
-        } catch (error) {
+//         } catch (error) {
 
-        }
-    },
-    (error: AxiosError) =>{
-        return Promise.reject(error);
-    }
-)
+//         }
+//     },
+//     (error: AxiosError) =>{
+//         return Promise.reject(error);
+//     }
+// )
 
 
